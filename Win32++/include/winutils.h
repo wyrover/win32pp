@@ -627,6 +627,26 @@ namespace Win32xx
 		return bIsXPThemed;
 	}
 
+	inline HMODULE SafeLoadSystemLibrary(const TCHAR *fileName) {
+		HMODULE hMod = NULL;
+		UINT res;
+		unsigned int bufSize = 20; // size of default windows system32 path, c:\windows\system32
+		unsigned int len = _tcslen(fileName);
+		TCHAR *sys_dir = new TCHAR[bufSize + 1 + len];
+		while ((res = ::GetSystemDirectory(sys_dir, bufSize)) > bufSize) {
+			delete [] sys_dir;
+			bufSize = res;
+			sys_dir = new TCHAR[bufSize + 1 + len];
+		}
+		if (res != 0) {
+			sys_dir[bufSize - 1] = _T('\\');
+			sys_dir[bufSize] = _T('\0');
+			hMod = ::LoadLibrary(_tcscat(sys_dir, fileName));
+		}
+		delete [] sys_dir;
+		return hMod;
+	}
+
   #endif // #ifndef _WIN32_WCE
 
   // Required for WinCE
