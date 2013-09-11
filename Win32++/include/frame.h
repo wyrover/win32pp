@@ -1563,7 +1563,7 @@ namespace Win32xx
 	{
 		assert(m_pFrame);
 
-		HMODULE hModule = ::LoadLibrary(_T("UXTHEME.DLL"));
+		HMODULE hModule = ::SafeLoadSystemLibrary(_T("UXTHEME.DLL"));
 		if (hModule)
 		{
 			m_pfnCloseThemeData			  = (CLOSETHEMEDATA*)::GetProcAddress(hModule, "CloseThemeData");
@@ -2470,7 +2470,7 @@ namespace Win32xx
 	inline CString CFrame::GetThemeName() const
 	{
 		// Returns the XP theme name
-		HMODULE hMod = ::LoadLibrary(_T("uxtheme.dll"));
+		HMODULE hMod = ::SafeLoadSystemLibrary(_T("uxtheme.dll"));
 		WCHAR ThemeName[31] = L"";
 		if(hMod)
 		{
@@ -2493,7 +2493,7 @@ namespace Win32xx
 		try
 		{
 			// Load the Common Controls DLL
-			hComCtl = ::LoadLibrary(_T("COMCTL32.DLL"));
+			hComCtl = ::SafeLoadSystemLibrary(_T("COMCTL32.DLL"));
 			if (!hComCtl)
 				throw CWinException(_T("Failed to load COMCTL32.DLL"));
 

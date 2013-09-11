@@ -578,7 +578,7 @@ namespace Win32xx
 		// Test if Windows version is XP or greater
 		if (GetWinVersion() >= 2501)
 		{
-			HMODULE hMod = ::LoadLibrary(_T("uxtheme.dll"));
+			HMODULE hMod = ::SafeLoadSystemLibrary(_T("uxtheme.dll"));
 			if(hMod)
 			{
 				// Declare pointers to IsCompositionActive function
@@ -605,7 +605,7 @@ namespace Win32xx
 		// Test if Windows version is XP or greater
 		if (GetWinVersion() >= 2501)
 		{
-			HMODULE hMod = ::LoadLibrary(_T("uxtheme.dll"));
+			HMODULE hMod = ::SafeLoadSystemLibrary(_T("uxtheme.dll"));
 			if(hMod)
 			{
 				// Declare pointers to functions
